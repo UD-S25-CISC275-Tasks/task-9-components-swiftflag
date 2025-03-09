@@ -10,16 +10,7 @@ export function makeBlankQuestion(
     name: string,
     type: QuestionType
 ): Question {
-    return {
-        id,
-        name,
-        body: "",
-        type,
-        options: [],
-        expected: "",
-        points: 1,
-        published: false
-    };
+    return {};
 }
 
 /**
@@ -30,8 +21,7 @@ export function makeBlankQuestion(
  * HINT: Look up the `trim` and `toLowerCase` functions.
  */
 export function isCorrect(question: Question, answer: string): boolean {
-    const realanswer = answer.trim().toLowerCase();
-    return realanswer === question.expected.toLowerCase();
+    return false;
 }
 
 /**
@@ -41,8 +31,6 @@ export function isCorrect(question: Question, answer: string): boolean {
  * be exactly one of the options.
  */
 export function isValid(question: Question, answer: string): boolean {
-    if (question.type === "short_answer_question") return true;
-    if (question.options.includes(answer)) return true;
     return false;
 }
 
@@ -53,8 +41,7 @@ export function isValid(question: Question, answer: string): boolean {
  * name "My First Question" would become "9: My First Q".
  */
 export function toShortForm(question: Question): string {
-    const shortform = question.name.substring(0, 10);
-    return question.id.toString().concat(": ", shortform);
+    return "";
 }
 
 /**
@@ -75,15 +62,7 @@ export function toShortForm(question: Question): string {
  * Check the unit tests for more examples of what this looks like!
  */
 export function toMarkdown(question: Question): string {
-    let the_question: string = "# " + question.name + "\n" + question.body;
-    let MCQ: string = "";
-    if (question.type === "multiple_choice_question") {
-        for (const option of question.options) {
-            MCQ = MCQ + "\n- " + option;
-        }
-        return the_question + MCQ;
-    }
-    return the_question;
+    return "";
 }
 
 /**
@@ -91,8 +70,7 @@ export function toMarkdown(question: Question): string {
  * `newName`.
  */
 export function renameQuestion(question: Question, newName: string): Question {
-    const newquestion = { ...question, name: newName };
-    return newquestion;
+    return question;
 }
 
 /**
@@ -101,8 +79,7 @@ export function renameQuestion(question: Question, newName: string): Question {
  * published; if it was published, now it should be not published.
  */
 export function publishQuestion(question: Question): Question {
-    const newquestion = { ...question, published: !question.published };
-    return newquestion;
+    return question;
 }
 
 /**
@@ -112,13 +89,7 @@ export function publishQuestion(question: Question): Question {
  * The `published` field should be reset to false.
  */
 export function duplicateQuestion(id: number, oldQuestion: Question): Question {
-    const newquestion = {
-        ...oldQuestion,
-        id: id,
-        name: "Copy of " + oldQuestion.name,
-        published: false
-    };
-    return newquestion;
+    return oldQuestion;
 }
 
 /**
@@ -129,11 +100,7 @@ export function duplicateQuestion(id: number, oldQuestion: Question): Question {
  * Check out the subsection about "Nested Fields" for more information.
  */
 export function addOption(question: Question, newOption: string): Question {
-    const newquestion = {
-        ...question,
-        options: [...question.options, newOption]
-    };
-    return newquestion;
+    return question;
 }
 
 /**
@@ -150,12 +117,5 @@ export function mergeQuestion(
     contentQuestion: Question,
     { points }: { points: number }
 ): Question {
-    const newQuestion = {
-        ...contentQuestion,
-        points: points,
-        name: name,
-        id: id,
-        published: false
-    };
-    return newQuestion;
+    return contentQuestion;
 }
